@@ -1,0 +1,30 @@
+# macOS
+.DS_Store
+
+# Go
+*.exe
+*.test
+*.out
+vendor/
+
+# IDE
+.vscode/
+.idea/
+
+# Environment
+.env
+
+# Logs
+*.log
+
+# Flutter
+mobile/.dart_tool/
+mobile/build/
+
+# Terraform
+**/.terraform/
+*.tfstate
+*.tfstate.*
+
+# Coverage
+coverage.out
