@@ -3,11 +3,9 @@ package main
 import (
 	"log"
 
-	"github.com/devenkulkarni/barkbnb/backend/internal/routes"
-
-	"github.com/gofiber/fiber/v3"
-
 	"github.com/devenkulkarni/barkbnb/backend/internal/config"
+
+	"github.com/devenkulkarni/barkbnb/backend/internal/app"
 )
 
 func main() {
@@ -16,9 +14,7 @@ func main() {
 		log.Fatal("Failed to load configuration: ", err)
 	}
 
-	app := fiber.New()
-
-	routes.Register(app)
+	application := app.NewApplication(cfg)
 
 	log.Printf(
 		"🐶 %s %s starting on port %s",
@@ -27,5 +23,5 @@ func main() {
 		cfg.Server.Port,
 	)
 
-	log.Fatal(app.Listen(":" + cfg.Server.Port))
+	log.Fatal(application.Run())
 }
