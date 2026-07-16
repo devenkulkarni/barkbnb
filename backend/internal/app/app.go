@@ -5,6 +5,7 @@ import (
 
 	"github.com/devenkulkarni/barkbnb/backend/internal/config"
 	"github.com/devenkulkarni/barkbnb/backend/internal/database"
+	"github.com/devenkulkarni/barkbnb/backend/internal/handlers"
 	"github.com/devenkulkarni/barkbnb/backend/internal/logger"
 	"github.com/devenkulkarni/barkbnb/backend/internal/middleware"
 	"github.com/devenkulkarni/barkbnb/backend/internal/routes"
@@ -40,7 +41,8 @@ func NewApplication(cfg *config.Config) (*Application, error) {
 		"database", cfg.Database.Name,
 	)
 
-	routes.Register(fiberApp)
+	handler := handlers.New(appLogger, dbApp)
+	routes.Register(fiberApp, handler)
 
 	return &Application{
 		Config:   cfg,
