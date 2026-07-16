@@ -40,20 +40,20 @@ func Load() (*Config, error) {
 
 	cfg.Server.Port = os.Getenv("SERVER_PORT")
 
-	cfg.Database.Host = os.Getenv("DB_HOST")
-	cfg.Database.Port = os.Getenv("DB_PORT")
-	cfg.Database.Name = os.Getenv("DB_NAME")
-	cfg.Database.User = os.Getenv("DB_USER")
-	cfg.Database.Password = os.Getenv("DB_PASSWORD")
-	cfg.Database.SSLMode = os.Getenv("DB_SSL_MODE")
+	cfg.Database.Host = os.Getenv("POSTGRES_HOST")
+	cfg.Database.Port = os.Getenv("POSTGRES_PORT")
+	cfg.Database.Name = os.Getenv("POSTGRES_DB_NAME")
+	cfg.Database.User = os.Getenv("POSTGRES_USER")
+	cfg.Database.Password = os.Getenv("POSTGRES_PASSWORD")
+	cfg.Database.SSLMode = os.Getenv("POSTGRES_SSL_MODE")
 
 	if cfg.Server.Port == "" {
 		return nil, fmt.Errorf("SERVER_PORT is required")
 	}
 
-	// if cfg.Database.Host == "" || cfg.Database.Port == "" || cfg.Database.Name == "" || cfg.Database.User == "" || cfg.Database.Password == "" {
-	//		return nil, fmt.Errorf("database configuration is required")
-	//}
+	if cfg.Database.Host == "" || cfg.Database.Port == "" || cfg.Database.Name == "" || cfg.Database.User == "" || cfg.Database.Password == "" {
+		return nil, fmt.Errorf("POSTGRES_HOST, POSTGRES_PORT, POSTGRES_DB_NAME, POSTGRES_USER, and POSTGRES_PASSWORD are required")
+	}
 
 	return cfg, nil
 }

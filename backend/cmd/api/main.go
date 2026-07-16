@@ -14,6 +14,12 @@ func main() {
 		log.Fatal("Failed to load configuration: ", err)
 	}
 
-	application := app.NewApplication(cfg)
-	application.Run()
+	application, err := app.NewApplication(cfg)
+	if err != nil {
+		log.Fatal("Failed to create application: ", err)
+	}
+
+	if err := application.Run(); err != nil {
+		log.Fatal("Failed to run application: ", err)
+	}
 }
