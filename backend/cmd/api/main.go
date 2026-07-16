@@ -15,13 +15,5 @@ func main() {
 	}
 
 	application := app.NewApplication(cfg)
-
-	log.Printf(
-		"🐶 %s %s starting on port %s",
-		cfg.App.Name,
-		cfg.App.Version,
-		cfg.Server.Port,
-	)
-
-	log.Fatal(application.Run())
+	application.Run()
 }
