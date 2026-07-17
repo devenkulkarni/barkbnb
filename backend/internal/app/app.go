@@ -8,6 +8,7 @@ import (
 	"github.com/devenkulkarni/barkbnb/backend/internal/handlers"
 	"github.com/devenkulkarni/barkbnb/backend/internal/logger"
 	"github.com/devenkulkarni/barkbnb/backend/internal/middleware"
+	"github.com/devenkulkarni/barkbnb/backend/internal/models"
 	"github.com/devenkulkarni/barkbnb/backend/internal/routes"
 	"github.com/gofiber/fiber/v3"
 	"gorm.io/gorm"
@@ -40,6 +41,12 @@ func NewApplication(cfg *config.Config) (*Application, error) {
 		"port", cfg.Database.Port,
 		"database", cfg.Database.Name,
 	)
+
+	err = dbApp.AutoMigrate(&models.User{})
+	if err != nil {
+		appLogger.Error("Failed to auto-migrate database models", "error", err)
+		return nil, err
+	}
 
 	handler := handlers.New(appLogger, dbApp)
 	routes.Register(fiberApp, handler)

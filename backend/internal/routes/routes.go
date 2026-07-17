@@ -9,6 +9,6 @@ func Register(app *fiber.App, h *handlers.Handler) {
 	api := app.Group("/api")
 	v1 := api.Group("/v1")
 
-	v1.Get("/health", h.Health)
-	// registerHealthRoutes(v1, h)
+	registerHealthRoutes(v1, h)
+	registerUserRoutes(v1, h)
 }
